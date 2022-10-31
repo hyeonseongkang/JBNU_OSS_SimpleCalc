@@ -37,19 +37,40 @@ while True:
 
         # check if user wants another calculation
         # break the while loop if answer is no
-        next_calculation = input("Let's do next calculation? (yes/no): ").lower()
 
-        if next_calculation == "yes":
-            continue
-        elif next_calculation == "no":
-            again_check = input("Are you sure? (yes/no): ").lower()
-            if again_check == "yes":
-                break
-            elif again_check == "no":
+        out_while_condi = True
+        break_val = False
+
+        while out_while_condi:
+            
+            next_calculation = input("Let's do next calculation? (yes/no): ").lower()
+            out_while_condi = False
+            
+            if next_calculation == "yes":
                 continue
-        else:
 
-            continue
+            elif next_calculation == "no":
+                
+                inner_while_condi = True
+ 
+                while inner_while_condi:
+                    again_check = input("Are you sure? (yes/no): ").lower()
+                
+                    inner_while_condi = False
 
+                    if again_check == "yes":
+                        break_val = True
+                    elif again_check == "no":
+                        continue
+                    else:
+                        inner_while_condi = True
+            
+
+
+            else:          
+                out_while_condi = True
+
+        if break_val == True:
+            break
     else:
         print("Invalid Input")
