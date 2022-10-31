@@ -11,10 +11,10 @@ print("4.Divide")
 
 while True:
     # take input from the user
-    choice = input("Enter choice(1/2/3): ")
+    choice = input("Enter choice(1/2/3/4): ")
 
     # check if choice is one of the four options
-    if choice in ('1', '2', '3'):
+    if choice in ('1', '2', '3', '4'):
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
@@ -33,8 +33,17 @@ while True:
         # check if user wants another calculation
         # break the while loop if answer is no
         next_calculation = input("Let's do next calculation? (yes/no): ").lower()
-        if next_calculation == "no":
-            break
+
+        if next_calculation == "yes":
+            continue
+        elif next_calculation == "no":
+            again_check = input("Are you sure? (yes/no): ").lower()
+            if again_check == "yes":
+                break
+            elif again_check == "no":
+                continue
+        else:
+            continue
 
     else:
         print("Invalid Input")
