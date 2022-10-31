@@ -1,6 +1,7 @@
 # Program make a simple calculator
 
 from package import calculator
+from package import log
 
 print("Select operation.")
 print("1.Add")
@@ -21,10 +22,12 @@ while True:
         if choice == '1':
             print(num1, "+", num2, "=", calculator.add(num1, num2))
 
+
         elif choice == '2':
             print(num1, "-", num2, "=", calculator.subtract(num1, num2))
 
-        elif choice == '3':
+
+        elif choice == '3':           
             print(num1, "*", num2, "=", calculator.multiply(num1, num2))
             
         elif choice == '4':
@@ -45,7 +48,7 @@ while True:
             
             next_calculation = input("Let's do next calculation? (yes/no): ").lower()
             out_while_condi = False
-            
+
             if next_calculation == "yes":
                 continue
 
@@ -65,8 +68,6 @@ while True:
                     else:
                         inner_while_condi = True
             
-
-
             else:          
                 out_while_condi = True
 
