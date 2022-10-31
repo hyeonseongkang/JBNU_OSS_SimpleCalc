@@ -1,20 +1,6 @@
 # Program make a simple calculator
 
-# This function adds two numbers
-def add(x, y):
-    return x + y
-
-# This function subtracts two numbers
-def subtract(x, y):
-    return x - y
-
-# This function multiplies two numbers
-def multiply(x, y):
-    return x * y
-
-#Need to define divide function.
-def divide (x,y):
-    return x / y
+from package import calculator
 
 print("Select operation.")
 print("1.Add")
@@ -33,16 +19,16 @@ while True:
         num2 = float(input("Enter second number: "))
 
         if choice == '1':
-            print(num1, "+", num2, "=", add(num1, num2))
+            print(num1, "+", num2, "=", calculator.add(num1, num2))
 
         elif choice == '2':
-            print(num1, "-", num2, "=", subtract(num1, num2))
+            print(num1, "-", num2, "=", calculator.subtract(num1, num2))
 
         elif choice == '3':
-            print(num1, "*", num2, "=", multiply(num1, num2))
+            print(num1, "*", num2, "=", calculator.multiply(num1, num2))
             
         elif choice == '4':
-            print(num1, "/", num2, "=", divide(num1, num2))
+            print(num1, "/", num2, "=", calculator.divide(num1, num2))
 
         # check if user wants another calculation
         # break the while loop if answer is no
