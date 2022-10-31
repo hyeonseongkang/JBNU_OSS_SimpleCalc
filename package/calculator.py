@@ -12,4 +12,6 @@ def multiply(x, y):
 
 #Need to define divide function.
 def divide (x,y):
+    if y == 0:
+        return False
     return x / y

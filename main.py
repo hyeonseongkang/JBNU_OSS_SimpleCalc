@@ -28,7 +28,12 @@ while True:
             print(num1, "*", num2, "=", calculator.multiply(num1, num2))
             
         elif choice == '4':
-            print(num1, "/", num2, "=", calculator.divide(num1, num2))
+            value = calculator.divide(num1, num2)
+            if value == False:
+                print("***Warning***\ndiv by zero")
+            else:
+                print(num1, "/", num2, "=", value)
+
 
         # check if user wants another calculation
         # break the while loop if answer is no
@@ -43,6 +48,7 @@ while True:
             elif again_check == "no":
                 continue
         else:
+
             continue
 
     else:
