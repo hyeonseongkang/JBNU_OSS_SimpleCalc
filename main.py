@@ -4,8 +4,9 @@ from package import calculator
 from package import log
 import logging
 
-success_logging = log.get_logging("success", logging.DEBUG, './logs/success.log')
-fail_logging = log.get_logging("fail", logging.ERROR, './logs/fail.log')
+# success, fail logger 생성
+success_logger = log.get_logging("success", logging.DEBUG, './logs/success.log')
+fail_logger = log.get_logging("fail", logging.ERROR, './logs/fail.log')
 
 
 print("Select operation.")
@@ -23,34 +24,40 @@ while True:
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
+        # 더하기
         if choice == '1':
-            print('1')
             log_str = '%0.1f + %0.1f = %0.1f' % (num1, num2, calculator.add(num1, num2))
-            success_logging.debug(log_str)
+            print(log_str)
+            success_logger.debug(log_str)
 
-
+        # 빼기
         elif choice == '2':
-            print('2')
             log_str = '%0.1f - %0.1f = %0.1f' % (num1, num2, calculator.subtract(num1, num2))
-            success_logging.debug(log_str)
+            print(log_str)
+            success_logger.debug(log_str)
 
 
+        # 곱하기
         elif choice == '3':
-            print('3')
             log_str = '%0.1f * %0.1f = %0.1f' % (num1, num2, calculator.multiply(num1, num2))
-            success_logging.debug(log_str)
+            print(log_str)
+            success_logger.debug(log_str)
 
-            
+
+        # 나누기
         elif choice == '4':
-            print('4')
             value = calculator.divide(num1, num2)
+
+            # 나누기 에러
             if value == False:
-                log_str = "Div By Zero"
-                fail_logging.error(log_str)
+                log_str = "Div By Zero: 0으로 나눌 수 없습니다."
+                fail_logger.error(log_str)
 
             else:
                 log_str = '%0.1f / %0.1f = %0.1f' % (num1, num2, value)
-                success_logging.debug(log_str)
+                success_logger.debug(log_str)
+            
+            print(log_str)
 
 
         # check if user wants another calculation
@@ -59,8 +66,10 @@ while True:
         out_while_condi = True
         break_val = False
 
+        # 프로그램 종료 루틴에서, yes/no 이외의 입력에 대해 재확인 하기 위해 while loop 사용
         while out_while_condi:
             
+            # yes/no 입력값에 대해 대소문자 모두 허용하기 위해 입력값을 전부 소문자로 변경
             next_calculation = input("Let's do next calculation? (yes/no): ").lower()
             out_while_condi = False
 
@@ -71,6 +80,7 @@ while True:
                 
                 inner_while_condi = True
  
+                # 프로그램 종료 전 종료 재확인에서 yes, no 이외의 값이 들어오면 다시 재확인 하기 위해 while loop 사용
                 while inner_while_condi:
                     again_check = input("Are you sure? (yes/no): ").lower()
                 
@@ -78,16 +88,19 @@ while True:
 
                     if again_check == "yes":
                         break_val = True
+
                     elif again_check == "no":
                         continue
+
                     else:
                         inner_while_condi = True
             
-            else:          
+            else:           
                 out_while_condi = True
 
         if break_val == True:
             break
     else:
-        log_str = "Invalid Input"
-        fail_logging.error(log_str)
+        log_str = "Invalid Input: 1~4 사이의 값을 입력해 주세요."
+        fail_logger.error(log_str)
+        print(log_str)
