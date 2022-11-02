@@ -2,13 +2,17 @@
 
 from package import calculator
 from package import log
+import logging
+
+success_logging = log.get_logging("success", logging.DEBUG, './logs/success.log')
+fail_logging = log.get_logging("fail", logging.ERROR, './logs/fail.log')
+
 
 print("Select operation.")
 print("1.Add")
 print("2.Subtract")
 print("3.Multiply")
 print("4.Divide") 
-
 
 while True:
     # take input from the user
@@ -20,22 +24,33 @@ while True:
         num2 = float(input("Enter second number: "))
 
         if choice == '1':
-            print(num1, "+", num2, "=", calculator.add(num1, num2))
+            print('1')
+            log_str = '%0.1f + %0.1f = %0.1f' % (num1, num2, calculator.add(num1, num2))
+            success_logging.debug(log_str)
 
 
         elif choice == '2':
-            print(num1, "-", num2, "=", calculator.subtract(num1, num2))
+            print('2')
+            log_str = '%0.1f - %0.1f = %0.1f' % (num1, num2, calculator.subtract(num1, num2))
+            success_logging.debug(log_str)
 
 
-        elif choice == '3':           
-            print(num1, "*", num2, "=", calculator.multiply(num1, num2))
+        elif choice == '3':
+            print('3')
+            log_str = '%0.1f * %0.1f = %0.1f' % (num1, num2, calculator.multiply(num1, num2))
+            success_logging.debug(log_str)
+
             
         elif choice == '4':
+            print('4')
             value = calculator.divide(num1, num2)
             if value == False:
-                print("***Warning***\ndiv by zero")
+                log_str = "Div By Zero"
+                fail_logging.error(log_str)
+
             else:
-                print(num1, "/", num2, "=", value)
+                log_str = '%0.1f / %0.1f = %0.1f' % (num1, num2, value)
+                success_logging.debug(log_str)
 
 
         # check if user wants another calculation
@@ -74,4 +89,5 @@ while True:
         if break_val == True:
             break
     else:
-        print("Invalid Input")
+        log_str = "Invalid Input"
+        fail_logging.error(log_str)
