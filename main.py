@@ -1,5 +1,6 @@
 # Program make a simple calculator
 
+from curses.ascii import isdigit
 from package import calculator
 from package import log
 import logging
@@ -8,22 +9,28 @@ import logging
 success_logger = log.get_logging("success", logging.DEBUG, './logs/success.log')
 fail_logger = log.get_logging("fail", logging.ERROR, './logs/fail.log')
 
-
 print("Select operation.")
 print("1.Add")
 print("2.Subtract")
 print("3.Multiply")
 print("4.Divide") 
 
-while True:
+while True: 
     # take input from the user
     choice = input("Enter choice(1/2/3/4): ")
 
     # check if choice is one of the four options
     if choice in ('1', '2', '3', '4'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
-
+        
+        try :
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except:
+            log_str = "Invalid Input: 숫자만 입력 가능합니다."
+            fail_logger.error(log_str)
+            print(log_str)
+            continue
+      
         # 더하기
         if choice == '1':
             log_str = '%0.1f + %0.1f = %0.1f' % (num1, num2, calculator.add(num1, num2))
@@ -36,13 +43,11 @@ while True:
             print(log_str)
             success_logger.debug(log_str)
 
-
         # 곱하기
         elif choice == '3':
             log_str = '%0.1f * %0.1f = %0.1f' % (num1, num2, calculator.multiply(num1, num2))
             print(log_str)
             success_logger.debug(log_str)
-
 
         # 나누기
         elif choice == '4':
@@ -93,9 +98,15 @@ while True:
                         continue
 
                     else:
+                        log_str = "Invalid Input: yes/no 중 하나의 값을 입력해 주세요."
+                        fail_logger.error(log_str)
+                        print(log_str)
                         inner_while_condi = True
             
             else:           
+                log_str = "Invalid Input: yes/no 중 하나의 값을 입력해 주세요."
+                fail_logger.error(log_str)
+                print(log_str)
                 out_while_condi = True
 
         if break_val == True:
